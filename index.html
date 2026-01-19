@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUDO | Zen Sprouts Catalogue</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --accent: #d4af37; /* Gold accent for the Zen feel */
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 1px solid #333;
+            width: 100%;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            margin-bottom: 15px;
+            background: #222; /* Placeholder for your monk logo */
+        }
+
+        h1 { font-weight: 300; letter-spacing: 4px; color: var(--accent); margin: 10px 0; }
+        .tagline { color: var(--text-dim); font-style: italic; margin-bottom: 20px; }
+
+        .container {
+            max-width: 1000px;
+            width: 90%;
+            margin: 40px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .category-title {
+            grid-column: 1 / -1;
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            letter-spacing: 2px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid #222;
+        }
+
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: grayscale(30%);
+        }
+
+        .card-content { padding: 20px; }
+        .card-title { font-size: 1.2rem; margin-bottom: 8px; color: var(--accent); }
+        .card-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.4; }
+
+        .order-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-align: center;
+            text-decoration: none;
+            margin-top: 15px;
+            border-radius: 6px;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .order-btn:hover { background: var(--accent); color: black; }
+
+        footer { padding: 40px; color: #444; font-size: 0.8rem; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://via.placeholder.com/150" alt="Budo Logo" class="logo">
+        <h1>BUDO COLLECTIVE</h1>
+        <div class="tagline">STEALTH HARVEST • ANCIENT DISCIPLINE</div>
+    </header>
+
+    <div class="container">
+        <div class="category-title">CATEGORY A: ZEN SPROUTS</div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=500&q=80" class="card-img">
+            <div class="card-content">
+                <div class="card-title">1. Mung Bean</div>
+                <p class="card-desc">Crisp, refreshing, and vital. The foundation of the Budo diet.</p>
+                <a href="https://wa.me/YOURNUMBER?text=I'd%20like%20to%20order%20Mung%20Bean%20Sprouts" class="order-btn">ORDER VIA WHATSAPP</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1515543904379-3d757afe72e2?auto=format&fit=crop&w=500&q=80" class="card-img">
+            <div class="card-content">
+                <div class="card-title">2. Chickpea</div>
+                <p class="card-desc">Rich in protein and earthy flavor. Strengthens the warrior's spirit.</p>
+                <a href="#" class="order-btn">ORDER VIA WHATSAPP</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1585912223916-430652d856d0?auto=format&fit=crop&w=500&q=80" class="card-img">
+            <div class="card-content">
+                <div class="card-title">3. Lobia Beans</div>
+                <p class="card-desc">Delicate black-eyed peas sprouted for maximum nutrient absorption.</p>
+                <a href="#" class="order-btn">ORDER VIA WHATSAPP</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1599599810694-b5b37304c041?auto=format&fit=crop&w=500&q=80" class="card-img">
+            <div class="card-content">
+                <div class="card-title">8. Wheat Grass</div>
+                <p class="card-desc">The ultimate detox. Living chlorophyll grown in controlled silence.</p>
+                <a href="#" class="order-btn">ORDER VIA WHATSAPP</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 BUDO BIOGENETICS. ALL RIGHTS RESERVED.
+    </footer>
+
+</body>
+</html>
