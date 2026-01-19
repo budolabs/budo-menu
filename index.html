@@ -3,253 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BUDO | Zen Harvest</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <title>BUDO | Lab & Apothecary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #000000;
-            --surface: #111111;
-            --accent: #d4af37; /* Gold Warrior Accent */
-            --text: #ffffff;
-            --text-dim: #888888;
+            --gold: #d4af37;
+            --bg: #050505;
+            --surface: #121212;
+            --text: #f0f0f0;
+            --zen-green: #2d5a27;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; transition: all 0.3s ease; }
         body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; padding-bottom: 80px;
+            background: var(--bg); color: var(--text); 
+            font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; 
         }
 
-        /* Hero / Logo Section */
+        /* Hero Section */
         .hero {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #1a1a1a 0%, #050505 100%);
             text-align: center;
-            padding: 60px 20px;
-            background: radial-gradient(circle, #1a1a1a 0%, #000000 70%);
+            border-bottom: 1px solid #222;
         }
 
-        .logo-container {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            background-image: url('https://ibb.co/9Hn3FpvN'); /* Add your uploaded logo link here */
-            background-size: cover;
-            background-position: center;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+        .budo-logo {
+            width: 220px;
+            height: 220px;
+            background: url('https://i.ibb.co/9Hn3FpvN/Budo-Logo.png') no-repeat center;
+            background-size: contain;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+            margin-bottom: 20px;
         }
 
-        h1 { font-family: 'Cinzel', serif; letter-spacing: 5px; font-size: 2rem; margin: 0; }
-        .tagline { color: var(--accent); font-size: 0.8rem; letter-spacing: 3px; margin-top: 10px; opacity: 0.8; }
+        h1 { font-family: 'Cinzel', serif; letter-spacing: 8px; color: var(--gold); margin: 0; font-size: 2.5rem; }
 
-        /* Navigation */
-        .view-section { display: none; padding: 20px; max-width: 800px; margin: 0 auto; }
-        .view-section.active { display: block; animation: fadeIn 0.5s ease forwards; }
+        /* Grid System */
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
+        .sprout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
 
-        /* Grid */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-
-        .item-card {
+        .sprout-card {
             background: var(--surface);
-            border-radius: 12px;
-            overflow: hidden;
             border: 1px solid #222;
-        }
-
-        .item-img {
-            width: 100%; height: 140px; object-fit: cover; opacity: 0.8;
-        }
-
-        .item-info { padding: 15px; }
-        .item-title { font-weight: 600; font-size: 1rem; margin-bottom: 5px; }
-        .item-price { color: var(--accent); font-size: 0.9rem; margin-bottom: 10px; }
-
-        .btn {
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 8px 12px;
-            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
             cursor: pointer;
-            border-radius: 4px;
-            transition: 0.3s;
-            font-size: 0.8rem;
+            position: relative;
         }
 
-        .btn:hover { background: var(--accent); color: #000; }
+        .sprout-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        
+        .sprout-img { width: 100%; height: 200px; object-fit: cover; }
+        
+        .card-meta { padding: 20px; }
+        .price-tag { color: var(--gold); font-weight: bold; font-size: 1.2rem; }
 
-        /* Cart & Tiers */
-        .cart-item {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; border-bottom: 1px solid #222;
+        /* Modal / Nutrient Popup */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); display: none; z-index: 1000;
+            overflow-y: auto; padding: 40px 20px;
         }
 
-        .tier-selection {
-            margin: 20px 0; display: flex; gap: 10px;
+        .modal-content {
+            max-width: 700px; margin: auto; background: #111; padding: 30px;
+            border: 1px solid var(--gold); border-radius: 20px;
         }
 
-        .tier-box {
-            flex: 1; border: 1px solid #333; padding: 15px; border-radius: 8px; text-align: center; cursor: pointer;
+        .nutrient-list {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+            font-size: 0.85rem; margin-top: 20px; color: #bbb;
         }
 
-        .tier-box.selected { border-color: var(--accent); background: rgba(212, 175, 55, 0.1); }
+        /* Cart & Checkout */
+        .cart-overlay {
+            position: fixed; right: 0; top: 0; width: 350px; height: 100%;
+            background: #0a0a0a; border-left: 1px solid var(--gold);
+            z-index: 900; transform: translateX(100%); padding: 20px;
+        }
+        .cart-overlay.active { transform: translateX(0); }
 
-        .tier-box h4 { margin: 0 0 5px 0; color: var(--accent); }
-        .tier-box p { font-size: 0.7rem; color: var(--text-dim); margin: 0; }
-
-        input, select {
-            width: 100%; padding: 12px; background: #111; border: 1px solid #333; color: white; margin-top: 10px; border-radius: 5px;
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.7rem; color: var(--gold); margin-bottom: 5px; text-transform: uppercase; }
+        input, select, textarea {
+            width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: #fff; border-radius: 5px;
         }
 
-        /* Bottom Nav */
-        .nav-bar {
-            position: fixed; bottom: 0; width: 100%; background: #0a0a0a; border-top: 1px solid #222;
-            display: flex; justify-content: space-around; padding: 15px 0; z-index: 100;
+        /* QR Section */
+        .payment-qr {
+            text-align: center; padding: 20px; background: #fff; border-radius: 10px; margin-top: 15px;
         }
 
-        .nav-item { color: var(--text-dim); text-decoration: none; font-size: 0.8rem; }
-        .nav-item.active { color: var(--accent); font-weight: bold; }
+        /* Live Stream Section */
+        .live-stream {
+            width: 100%; height: 400px; background: #000; margin-top: 50px;
+            border: 2px solid #222; border-radius: 15px; position: relative;
+        }
+        .live-label { position: absolute; top: 10px; left: 10px; background: red; padding: 5px 10px; font-size: 0.7rem; font-weight: bold; border-radius: 3px; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Buttons */
+        .btn-gold {
+            background: var(--gold); color: black; border: none; padding: 15px 25px;
+            font-weight: bold; cursor: pointer; border-radius: 5px; width: 100%;
+        }
+
+        .science-banner {
+            background: linear-gradient(45deg, #1a1a1a, #2d5a27);
+            padding: 40px; border-radius: 15px; margin: 40px 0; border: 1px solid var(--zen-green);
+        }
+
+        .qty-controls { display: flex; align-items: center; gap: 15px; margin-top: 15px; }
+        .qty-btn { background: #333; border: none; color: white; width: 30px; height: 30px; cursor: pointer; border-radius: 50%; }
+
     </style>
 </head>
 <body>
 
-<div class="hero">
-    <div class="logo-container"></div>
-    <h1>BUDO</h1>
-    <div class="tagline">ZEN SPROUTS • DISCIPLINED HARVEST</div>
-</div>
+    <div class="hero">
+        <div class="budo-logo"></div>
+        <h1>BUDO</h1>
+        <p style="letter-spacing: 5px; font-weight: 200;">PRECISION BIOGENETIC HARVEST</p>
+    </div>
 
-<div id="menu" class="view-section active">
-    <h3 style="border-left: 2px solid var(--accent); padding-left: 10px;">CATEGORY A: ZEN SPROUTS</h3>
-    <div class="grid" id="product-grid">
+    <div class="container">
+        <div class="science-banner">
+            <h2 style="font-family: 'Cinzel';">Join the Citizen Science Experiment</h2>
+            <p>Help us map the effects of 528Hz Solfeggio frequencies and Blue-Spectrum lighting on nutrient maximization. Participants receive **at-cost pricing** (zero profit margin).</p>
+            <div style="display: flex; gap: 10px;">
+                <input type="email" placeholder="Enter Email for Beta Access">
+                <button class="btn-gold" style="width: auto;">REGISTER AS CITIZEN SCIENTIST</button>
+            </div>
         </div>
-</div>
 
-<div id="cart" class="view-section">
-    <h3>YOUR ORDER</h3>
-    <div id="cart-items"></div>
-    
-    <div class="tier-selection">
-        <div class="tier-box selected" onclick="setTier('Economy')">
-            <h4>ECONOMY</h4>
-            <p>Recycled Zen Paper</p>
+        <h2 style="font-family: 'Cinzel'; border-bottom: 1px solid var(--gold); padding-bottom: 10px;">The Sprout Gallery</h2>
+        <div class="sprout-grid" id="gallery"></div>
+
+        <h2 style="font-family: 'Cinzel'; margin-top: 60px;">Subscription Protocols</h2>
+        <div class="sprout-grid">
+            <div class="sprout-card" style="padding: 20px;">
+                <h3>Protein Boost</h3>
+                <p style="font-size: 0.8rem; color: #888;">Chickpea + Horse Gram + Mung. Maximum amino acid bioavailability.</p>
+                <button class="btn-gold" onclick="openSubscription('Protein Boost')">START PROTOCOL</button>
+            </div>
+            <div class="sprout-card" style="padding: 20px;">
+                <h3>Green Nirvana</h3>
+                <p style="font-size: 0.8rem; color: #888;">Wheatgrass + Alfalfa + Broccoli. High Sulforaphane & Chlorophyll.</p>
+                <button class="btn-gold" onclick="openSubscription('Green Nirvana')">START PROTOCOL</button>
+            </div>
         </div>
-        <div class="tier-box" onclick="setTier('Superior')">
-            <h4>SUPERIOR</h4>
-            <p>Glass & Wood Accents</p>
+
+        <h2 style="font-family: 'Cinzel'; margin-top: 60px;">Budo Lab 24/7 Live Stream</h2>
+        <div class="live-stream">
+            <div class="live-label">2K BROADCAST LIVE</div>
+            <p style="text-align: center; margin-top: 180px; color: #444;">[ Connecting to Budo Cam Feed... ]</p>
         </div>
     </div>
 
-    <h4>DELIVERY SLOT</h4>
-    <input type="date" id="delivery-date">
-    <select id="delivery-time">
-        <option>Morning (06:00 - 09:00)</option>
-        <option>Evening (17:00 - 20:00)</option>
-    </select>
-
-    <button class="btn" style="margin-top: 30px; padding: 15px; font-size: 1rem;" onclick="sendOrder()">CONFIRM ORDER (WHATSAPP)</button>
-</div>
-
-<div class="nav-bar">
-    <a href="#" class="nav-item active" onclick="showView('menu')">CATALOGUE</a>
-    <a href="#" class="nav-item" onclick="showView('cart')">CART (<span id="cart-count">0</span>)</a>
-</div>
-
-<script>
-    const products = [
-        { id: 1, name: "Mung Bean", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=300" },
-        { id: 2, name: "Chickpea", img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e2?q=80&w=300" },
-        { id: 3, name: "Lobia Beans", img: "https://images.unsplash.com/photo-1585912223916-430652d856d0?q=80&w=300" },
-        { id: 4, name: "Horse Gram", img: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11?q=80&w=300" },
-        { id: 5, name: "Methi Fenugreek", img: "https://images.unsplash.com/photo-1599599810694-b5b37304c041?q=80&w=300" },
-        { id: 6, name: "Ragi", img: "https://images.unsplash.com/photo-1508013861974-9f6347163835?q=80&w=300" },
-        { id: 7, name: "Brown Rice", img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=300" },
-        { id: 8, name: "Wheat Grass", img: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=300" },
-        { id: 9, name: "Moth Beans", img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e2?q=80&w=300" },
-        { id: 10, name: "Pea", img: "https://images.unsplash.com/photo-1587996833651-01a258b296e7?q=80&w=300" },
-        { id: 11, name: "Groundnut", img: "https://images.unsplash.com/photo-1526947425960-945c6e72858f?q=80&w=300" },
-        { id: 12, name: "Halim", img: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11?q=80&w=300" },
-        { id: 13, name: "Masoor", img: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=300" }
-    ];
-
-    let cart = [];
-    let selectedTier = "Economy";
-
-    function renderProducts() {
-        const grid = document.getElementById('product-grid');
-        grid.innerHTML = products.map(p => `
-            <div class="item-card">
-                <img src="${p.img}" class="item-img">
-                <div class="item-info">
-                    <div class="item-title">${p.name}</div>
-                    <div class="item-price">Organic Sprout</div>
-                    <button class="btn" onclick="addToCart(${p.id})">+ ADD TO CART</button>
-                </div>
+    <div id="nutrientModal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2 id="modalTitle" style="color: var(--gold); font-family: 'Cinzel';"></h2>
+            <div id="modalNutrients" class="nutrient-list"></div>
+            <div class="qty-controls">
+                <button class="qty-btn" onclick="changeQty(-1)">-</button>
+                <span id="modalQty">1</span>
+                <button class="qty-btn" onclick="changeQty(1)">+</button>
+                <span style="margin-left: 20px; font-size: 0.8rem; color: var(--gold);">Select Grams (units of 100g)</span>
             </div>
-        `).join('');
-    }
+            <button class="btn-gold" style="margin-top: 20px;" onclick="confirmAddToCart()">ADD TO BASKET</button>
+        </div>
+    </div>
 
-    function addToCart(id) {
-        const p = products.find(x => x.id === id);
-        const exists = cart.find(x => x.id === id);
-        if (exists) { exists.qty++; } else { cart.push({...p, qty: 1}); }
-        updateCartCount();
-        alert(p.name + " added to harvest basket.");
-    }
-
-    function updateCartCount() {
-        document.getElementById('cart-count').innerText = cart.reduce((acc, item) => acc + item.qty, 0);
-    }
-
-    function showView(viewId) {
-        document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
-        document.getElementById(viewId).classList.add('active');
-        if(viewId === 'cart') renderCart();
-    }
-
-    function renderCart() {
-        const container = document.getElementById('cart-items');
-        if (cart.length === 0) {
-            container.innerHTML = "<p style='color:#666'>Your basket is empty.</p>";
-            return;
-        }
-        container.innerHTML = cart.map(item => `
-            <div class="cart-item">
-                <div>
-                    <div>${item.name}</div>
-                    <div style="font-size:0.7rem; color:var(--accent)">Qty: ${item.qty}</div>
-                </div>
-                <button onclick="removeFromCart(${item.id})" style="background:none; border:none; color:red; cursor:pointer;">Remove</button>
-            </div>
-        `).join('');
-    }
-
-    function removeFromCart(id) {
-        cart = cart.filter(x => x.id !== id);
-        renderCart();
-        updateCartCount();
-    }
-
-    function setTier(t) {
-        selectedTier = t;
-        document.querySelectorAll('.tier-box').forEach(b => b.classList.remove('selected'));
-        event.currentTarget.classList.add('selected');
-    }
-
-    function sendOrder() {
-        if(cart.length === 0) return alert("Basket is empty");
-        let msg = `*BUDO ORDER*%0A------------------%0A`;
-        cart.forEach(i => msg += `• ${i.name} (x${i.qty})%0A`);
-        msg += `------------------%0A*Tier:* ${selectedTier}%0A*Date:* ${document.getElementById('delivery-date').value}%0A*Slot:* ${document.getElementById('delivery-time').value}`;
+    <div id="cartSide" class="cart-overlay">
+        <h2 style="font-family: 'Cinzel'; color: var(--gold);">Your Basket</h2>
+        <div id="cartItems" style="height: 300px; overflow-y: auto;"></div>
         
-        window.open(`https://wa.me/919198910489?text=${msg}`);
-    }
+        <div class="input-group">
+            <label>Delivery Date</label>
+            <input type="date" id="delivDate">
+        </div>
+        <div class="input-group">
+            <label>Delivery Window (Your Off-Hours)</label>
+            <select id="delivSlot">
+                <option value="morning">Pre-Work (06:00 - 08:30)</option>
+                <option value="evening">Post-Work (19:30 - 21:30)</option>
+            </select>
+        </div>
+        <textarea id="address" placeholder="Full Delivery Address & Instructions" rows="3" style="margin-bottom: 10px;"></textarea>
+        
+        <div id="upiSection" style="display:none;">
+            <p style="font-size: 0.7rem; text-align: center;">Scan to Pay via UPI</p>
+            <div class="payment-qr">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=YOURUPI@ID&pn=BUDO&am=0" alt="UPI QR">
+            </div>
+        </div>
 
-    renderProducts();
-</script>
+        <button class="btn-gold" style="margin-top: 20px;" onclick="checkout()">PLACE ORDER VIA WHATSAPP</button>
+        <button onclick="toggleCart()" style="background: none; border: none; color: #555; width: 100%; margin-top: 10px; cursor: pointer;">Close</button>
+    </div>
 
+    <script>
+        const inventory = [
+            { name: "Mung Bean", price: 120, img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400", nutrients: { "Protein": "24g", "Fiber": "16g", "Folate": "159%", "Iron": "30%", "Vitamins": "A, B1, B2, B6", "Anti-Oxidants": "Vitexin, Isovitexin" } },
+            { name: "Broccoli Sprouts", price: 450, img: "https://images.unsplash.com/photo-1587996833651-01a258b296e7?w=400", nutrients: { "Sulforaphane": "High Density", "Glucoraphanin": "4000mg", "Vitamin C": "150%", "Calcium": "10%", "Special": "Anti-carcinogenic profile" } },
+            { name: "Chickpea", price: 140, img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e2?w=400", nutrients: { "Protein": "19g", "Lysine": "High", "Manganese": "80%", "Carbs": "Slow-release", "Amino Acids": "Leucine, Valine" } }
+            // Add more items here following the same structure
+        ];
+
+        let cart = [];
+        let currentItem = null;
+        let currentQty = 1;
+
+        function renderGallery() {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = inventory.map(item => `
+                <div class="sprout-card" onclick="openNutrients('${item.name}')">
+                    <img src="${item.img}" class="sprout-img">
+                    <div class="card-meta">
+                        <div style="font-family: 'Cinzel'; font-size: 1.2rem;">${item.name}</div>
+                        <div class="price-tag">₹${item.price} <span style="font-size: 0.7rem; color: #555;">/ 100g</span></div>
+                        <p style="font-size: 0.7rem; color: #888;">Click for detailed Bio-Profile</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openNutrients(name) {
+            currentItem = inventory.find(i => i.name === name);
+            currentQty = 1;
+            document.getElementById('modalTitle').innerText = currentItem.name + " (Nutrients per 100g)";
+            document.getElementById('modalQty').innerText = currentQty;
+            
+            const nList = document.getElementById('modalNutrients');
+            nList.innerHTML = Object.entries(currentItem.nutrients).map(([key, val]) => `
+                <div style="border-bottom: 1px solid #222; padding: 5px;">
+                    <span style="color:var(--gold)">${key}:</span> ${val}
+                </div>
+            `).join('');
+            
+            document.getElementById('nutrientModal').style.display = 'block';
+        }
+
+        function changeQty(amt) {
+            currentQty = Math.max(1, currentQty + amt);
+            document.getElementById('modalQty').innerText = currentQty;
+        }
+
+        function confirmAddToCart() {
+            cart.push({ ...currentItem, qty: currentQty });
+            document.getElementById('nutrientModal').style.display = 'none';
+            toggleCart();
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItems');
+            container.innerHTML = cart.map((item, idx) => `
+                <div style="display:flex; justify-content:space-between; margin-bottom: 15px; font-size: 0.9rem;">
+                    <span>${item.name} (x${item.qty})</span>
+                    <span>₹${item.price * item.qty}</span>
+                </div>
+            `).join('');
+            if(cart.length > 0) document.getElementById('upiSection').style.display = 'block';
+        }
+
+        function toggleCart() {
+            document.getElementById('cartSide').classList.toggle('active');
+        }
+
+        function closeModal(e) {
+            document.getElementById('nutrientModal').style.display = 'none';
+        }
+
+        function checkout() {
+            let msg = `*BUDO LAB ORDER*%0A%0A`;
+            cart.forEach(i => msg += `• ${i.name} (Qty: ${i.qty})%0A`);
+            msg += `%0A*Date:* ${document.getElementById('delivDate').value}`;
+            msg += `%0A*Slot:* ${document.getElementById('delivSlot').value}`;
+            msg += `%0A*Address:* ${document.getElementById('address').value}`;
+            window.open(`https://wa.me/918766675187?text=${msg}`);
+        }
+
+        renderGallery();
+    </script>
 </body>
 </html>
