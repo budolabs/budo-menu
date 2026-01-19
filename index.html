@@ -3,296 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BUDO | Lab & Apothecary</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;600&display=swap" rel="stylesheet">
+    <title>BUDO | Biogenetic Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #d4af37;
-            --bg: #050505;
-            --surface: #121212;
-            --text: #f0f0f0;
-            --zen-green: #2d5a27;
+            --bg: #000000;
+            --surface: #0a0a0a;
+            --text: #ffffff;
+            --accent-glow: rgba(212, 175, 55, 0.15);
         }
 
-        * { box-sizing: border-box; transition: all 0.3s ease; }
+        /* --- IMMERSIVE ANIMATIONS --- */
+        @keyframes rotateMandala { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes pulseHalo { 0% { box-shadow: 0 0 15px var(--accent-glow); } 50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.4); } 100% { box-shadow: 0 0 15px var(--accent-glow); } }
+        @keyframes dnaRotate { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
+
         body { 
-            background: var(--bg); color: var(--text); 
-            font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; 
+            background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; 
+            margin: 0; overflow-x: hidden; scroll-behavior: smooth;
         }
 
-        /* Hero Section */
+        /* --- HERO SECTION --- */
         .hero {
-            height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle, #1a1a1a 0%, #050505 100%);
-            text-align: center;
-            border-bottom: 1px solid #222;
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: radial-gradient(circle, #111 0%, #000 100%); position: relative;
         }
 
-        .budo-logo {
-            width: 220px;
-            height: 220px;
-            background: url('https://i.ibb.co/9Hn3FpvN/Budo-Logo.png') no-repeat center;
-            background-size: contain;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
-            margin-bottom: 20px;
+        .logo-halo {
+            width: 280px; height: 280px; border-radius: 50%;
+            background: url('https://i.ibb.co/FvHF0fs/Budo-Logo.png') no-repeat center;
+            background-size: contain; animation: pulseHalo 4s infinite ease-in-out;
+            margin-bottom: 20px; z-index: 2;
         }
 
-        h1 { font-family: 'Cinzel', serif; letter-spacing: 8px; color: var(--gold); margin: 0; font-size: 2.5rem; }
-
-        /* Grid System */
-        .container { max-width: 1100px; margin: auto; padding: 20px; }
-        .sprout-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
+        .dna-bg {
+            position: absolute; font-size: 10rem; opacity: 0.05; font-family: 'Cinzel';
+            animation: dnaRotate 10s infinite linear; z-index: 1;
         }
 
+        h1 { font-family: 'Cinzel', serif; letter-spacing: 12px; font-size: 3rem; color: var(--gold); margin: 0; }
+
+        /* --- SECTIONS --- */
+        .container { max-width: 1200px; margin: auto; padding: 40px 20px; }
+        .section-title { font-family: 'Cinzel'; border-left: 3px solid var(--gold); padding-left: 20px; margin: 60px 0 30px; letter-spacing: 4px; }
+
+        /* --- SPROUT CARDS --- */
+        .sprout-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        
         .sprout-card {
-            background: var(--surface);
-            border: 1px solid #222;
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
+            background: var(--surface); border: 1px solid #1a1a1a; border-radius: 20px;
+            overflow: hidden; cursor: pointer; position: relative; transition: 0.5s;
         }
 
-        .sprout-card:hover { border-color: var(--gold); transform: translateY(-5px); }
-        
-        .sprout-img { width: 100%; height: 200px; object-fit: cover; }
-        
-        .card-meta { padding: 20px; }
-        .price-tag { color: var(--gold); font-weight: bold; font-size: 1.2rem; }
+        .sprout-card:hover { border-color: var(--gold); transform: translateY(-10px); }
+        .sprout-card img { width: 100%; height: 220px; object-fit: cover; filter: grayscale(40%); transition: 0.5s; }
+        .sprout-card:hover img { filter: grayscale(0%); }
 
-        /* Modal / Nutrient Popup */
+        /* --- MANDALA BUTTONS --- */
+        .mandala-btn {
+            position: relative; background: var(--gold); color: black; border: none;
+            padding: 15px 40px; font-weight: bold; border-radius: 50px; cursor: pointer;
+            overflow: hidden; display: inline-flex; align-items: center; gap: 10px;
+        }
+
+        .mandala-icon {
+            width: 20px; height: 20px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20M5.6 5.6l12.8 12.8M5.6 18.4L18.4 5.6"/></svg>');
+            animation: rotateMandala 5s infinite linear;
+        }
+
+        /* --- NUTRIENT MODAL --- */
         .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); display: none; z-index: 1000;
-            overflow-y: auto; padding: 40px 20px;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.98); 
+            display: none; z-index: 2000; padding: 50px 20px; overflow-y: auto;
         }
+        .modal-content { max-width: 900px; margin: auto; background: #050505; border: 1px solid var(--gold); padding: 40px; border-radius: 30px; }
+        
+        .nutrient-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
+        .n-item { background: #111; padding: 10px; border-radius: 8px; font-size: 0.8rem; border: 1px solid #222; }
+        .n-item span { color: var(--gold); display: block; font-weight: bold; margin-bottom: 3px; }
 
-        .modal-content {
-            max-width: 700px; margin: auto; background: #111; padding: 30px;
-            border: 1px solid var(--gold); border-radius: 20px;
+        /* --- SUBSCRIPTION TIERS --- */
+        .tier-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .tier-card { 
+            background: #111; padding: 30px; border-radius: 20px; text-align: center; 
+            border: 1px solid #222; transition: 0.3s;
         }
-
-        .nutrient-list {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-            font-size: 0.85rem; margin-top: 20px; color: #bbb;
-        }
-
-        /* Cart & Checkout */
-        .cart-overlay {
-            position: fixed; right: 0; top: 0; width: 350px; height: 100%;
-            background: #0a0a0a; border-left: 1px solid var(--gold);
-            z-index: 900; transform: translateX(100%); padding: 20px;
-        }
-        .cart-overlay.active { transform: translateX(0); }
-
-        .input-group { margin-bottom: 15px; }
-        label { display: block; font-size: 0.7rem; color: var(--gold); margin-bottom: 5px; text-transform: uppercase; }
-        input, select, textarea {
-            width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: #fff; border-radius: 5px;
-        }
-
-        /* QR Section */
-        .payment-qr {
-            text-align: center; padding: 20px; background: #fff; border-radius: 10px; margin-top: 15px;
-        }
-
-        /* Live Stream Section */
-        .live-stream {
-            width: 100%; height: 400px; background: #000; margin-top: 50px;
-            border: 2px solid #222; border-radius: 15px; position: relative;
-        }
-        .live-label { position: absolute; top: 10px; left: 10px; background: red; padding: 5px 10px; font-size: 0.7rem; font-weight: bold; border-radius: 3px; }
-
-        /* Buttons */
-        .btn-gold {
-            background: var(--gold); color: black; border: none; padding: 15px 25px;
-            font-weight: bold; cursor: pointer; border-radius: 5px; width: 100%;
-        }
-
-        .science-banner {
-            background: linear-gradient(45deg, #1a1a1a, #2d5a27);
-            padding: 40px; border-radius: 15px; margin: 40px 0; border: 1px solid var(--zen-green);
-        }
-
-        .qty-controls { display: flex; align-items: center; gap: 15px; margin-top: 15px; }
-        .qty-btn { background: #333; border: none; color: white; width: 30px; height: 30px; cursor: pointer; border-radius: 50%; }
+        .tier-card:hover { border-color: var(--gold); background: #1a1a1a; }
+        .tier-price { font-size: 1.5rem; color: var(--gold); margin: 15px 0; }
 
     </style>
 </head>
 <body>
 
-    <div class="hero">
-        <div class="budo-logo"></div>
+    <section class="hero">
+        <div class="dna-bg">🧬</div>
+        <div class="logo-halo"></div>
         <h1>BUDO</h1>
-        <p style="letter-spacing: 5px; font-weight: 200;">PRECISION BIOGENETIC HARVEST</p>
+        <p style="letter-spacing: 6px; font-weight: 200; color: var(--gold);">ANCIENT DISCIPLINE • FUTURE GENETICS</p>
+        <br>
+        <button class="mandala-btn" onclick="document.getElementById('catalog').scrollIntoView()">
+            <div class="mandala-icon"></div> ENTER APOTHECARY
+        </button>
+    </section>
+
+    <div class="container" id="catalog">
+        <div style="background: linear-gradient(90deg, #0a0a0a, #1a1a1a); padding: 40px; border-radius: 30px; border: 1px solid var(--gold); text-align: center;">
+            <h2 style="font-family: 'Cinzel';">CITIZEN SCIENCE PORTAL</h2>
+            <p style="color: #888;">Currently testing: <b>528Hz Frequency Bio-Optimization</b>. Join the experiment for 0% profit-margin access.</p>
+            <input type="email" placeholder="Citizen Email ID" style="background:#000; border:1px solid #333; padding:12px; color:white; border-radius:5px; width:250px;">
+            <button class="mandala-btn" style="padding:12px 25px;">REGISTER</button>
+        </div>
+
+        <h2 class="section-title">THE SPROUT HARVEST</h2>
+        <div class="sprout-grid" id="sproutGallery"></div>
+
+        <h2 class="section-title">SUBSCRIPTION PROTOCOLS</h2>
+        <div class="tier-container">
+            <div class="tier-card"><h3>MONK</h3><div class="tier-price">₹999</div><p>Weekly basic essentials</p></div>
+            <div class="tier-card"><h3>WARRIOR</h3><div class="tier-price">₹1899</div><p>High protein focus</p></div>
+            <div class="tier-card"><h3>SAGE</h3><div class="tier-price">₹2999</div><p>The brain & longevity stack</p></div>
+            <div class="tier-card"><h3>SHOGUN</h3><div class="tier-price">₹4599</div><p>Full farm access + Priority</p></div>
+            <div class="tier-card"><h3>ZENITH</h3><div class="tier-price">Custom</div><p>Personalized bio-strategy</p></div>
+        </div>
+
+        <h2 class="section-title">BUDO MANUSCRIPTS (BLOG)</h2>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="tier-card" style="text-align:left;">
+                <h4>Sulforaphane: The Longevity Molecule</h4>
+                <p style="font-size: 0.8rem; color:#888;">How broccoli sprouts trigger the Nrf2 pathway...</p>
+            </div>
+            <div class="tier-card" style="text-align:left;">
+                <h4>Sound & Sprouting</h4>
+                <p style="font-size: 0.8rem; color:#888;">The effect of 432Hz on cell wall permeability...</p>
+            </div>
+        </div>
     </div>
 
-    <div class="container">
-        <div class="science-banner">
-            <h2 style="font-family: 'Cinzel';">Join the Citizen Science Experiment</h2>
-            <p>Help us map the effects of 528Hz Solfeggio frequencies and Blue-Spectrum lighting on nutrient maximization. Participants receive **at-cost pricing** (zero profit margin).</p>
-            <div style="display: flex; gap: 10px;">
-                <input type="email" placeholder="Enter Email for Beta Access">
-                <button class="btn-gold" style="width: auto;">REGISTER AS CITIZEN SCIENTIST</button>
-            </div>
-        </div>
-
-        <h2 style="font-family: 'Cinzel'; border-bottom: 1px solid var(--gold); padding-bottom: 10px;">The Sprout Gallery</h2>
-        <div class="sprout-grid" id="gallery"></div>
-
-        <h2 style="font-family: 'Cinzel'; margin-top: 60px;">Subscription Protocols</h2>
-        <div class="sprout-grid">
-            <div class="sprout-card" style="padding: 20px;">
-                <h3>Protein Boost</h3>
-                <p style="font-size: 0.8rem; color: #888;">Chickpea + Horse Gram + Mung. Maximum amino acid bioavailability.</p>
-                <button class="btn-gold" onclick="openSubscription('Protein Boost')">START PROTOCOL</button>
-            </div>
-            <div class="sprout-card" style="padding: 20px;">
-                <h3>Green Nirvana</h3>
-                <p style="font-size: 0.8rem; color: #888;">Wheatgrass + Alfalfa + Broccoli. High Sulforaphane & Chlorophyll.</p>
-                <button class="btn-gold" onclick="openSubscription('Green Nirvana')">START PROTOCOL</button>
-            </div>
-        </div>
-
-        <h2 style="font-family: 'Cinzel'; margin-top: 60px;">Budo Lab 24/7 Live Stream</h2>
-        <div class="live-stream">
-            <div class="live-label">2K BROADCAST LIVE</div>
-            <p style="text-align: center; margin-top: 180px; color: #444;">[ Connecting to Budo Cam Feed... ]</p>
-        </div>
-    </div>
-
-    <div id="nutrientModal" class="modal" onclick="closeModal(event)">
+    <div id="nutrientModal" class="modal" onclick="this.style.display='none'">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <h2 id="modalTitle" style="color: var(--gold); font-family: 'Cinzel';"></h2>
-            <div id="modalNutrients" class="nutrient-list"></div>
-            <div class="qty-controls">
-                <button class="qty-btn" onclick="changeQty(-1)">-</button>
-                <span id="modalQty">1</span>
-                <button class="qty-btn" onclick="changeQty(1)">+</button>
-                <span style="margin-left: 20px; font-size: 0.8rem; color: var(--gold);">Select Grams (units of 100g)</span>
-            </div>
-            <button class="btn-gold" style="margin-top: 20px;" onclick="confirmAddToCart()">ADD TO BASKET</button>
+            <h2 id="m-name" style="font-family:'Cinzel'; color:var(--gold);"></h2>
+            <p id="m-desc" style="color:#888; font-size:0.9rem;"></p>
+            <div class="nutrient-grid" id="m-nutrients"></div>
+            <hr style="border:0; border-top:1px solid #222; margin:30px 0;">
+            <button class="mandala-btn" style="width:100%; justify-content:center;" onclick="alert('Added to Basket')">ADD TO HARVEST</button>
         </div>
-    </div>
-
-    <div id="cartSide" class="cart-overlay">
-        <h2 style="font-family: 'Cinzel'; color: var(--gold);">Your Basket</h2>
-        <div id="cartItems" style="height: 300px; overflow-y: auto;"></div>
-        
-        <div class="input-group">
-            <label>Delivery Date</label>
-            <input type="date" id="delivDate">
-        </div>
-        <div class="input-group">
-            <label>Delivery Window (Your Off-Hours)</label>
-            <select id="delivSlot">
-                <option value="morning">Pre-Work (06:00 - 08:30)</option>
-                <option value="evening">Post-Work (19:30 - 21:30)</option>
-            </select>
-        </div>
-        <textarea id="address" placeholder="Full Delivery Address & Instructions" rows="3" style="margin-bottom: 10px;"></textarea>
-        
-        <div id="upiSection" style="display:none;">
-            <p style="font-size: 0.7rem; text-align: center;">Scan to Pay via UPI</p>
-            <div class="payment-qr">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=YOURUPI@ID&pn=BUDO&am=0" alt="UPI QR">
-            </div>
-        </div>
-
-        <button class="btn-gold" style="margin-top: 20px;" onclick="checkout()">PLACE ORDER VIA WHATSAPP</button>
-        <button onclick="toggleCart()" style="background: none; border: none; color: #555; width: 100%; margin-top: 10px; cursor: pointer;">Close</button>
     </div>
 
     <script>
-        const inventory = [
-            { name: "Mung Bean", price: 120, img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400", nutrients: { "Protein": "24g", "Fiber": "16g", "Folate": "159%", "Iron": "30%", "Vitamins": "A, B1, B2, B6", "Anti-Oxidants": "Vitexin, Isovitexin" } },
-            { name: "Broccoli Sprouts", price: 450, img: "https://images.unsplash.com/photo-1587996833651-01a258b296e7?w=400", nutrients: { "Sulforaphane": "High Density", "Glucoraphanin": "4000mg", "Vitamin C": "150%", "Calcium": "10%", "Special": "Anti-carcinogenic profile" } },
-            { name: "Chickpea", price: 140, img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e2?w=400", nutrients: { "Protein": "19g", "Lysine": "High", "Manganese": "80%", "Carbs": "Slow-release", "Amino Acids": "Leucine, Valine" } }
-            // Add more items here following the same structure
+        const sprouts = [
+            { name: "Mung Bean", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd", desc: "Foundational vitality sprout.", nutrients: { "Protein": "24g", "Iron": "6.7mg", "Folate": "625mcg", "Vitamin C": "13.2mg", "Fiber": "16g", "Potassium": "1.2g", "B1": "0.6mg", "Zinc": "2.7mg", "Manganese": "1mg" } },
+            { name: "Broccoli", img: "https://images.unsplash.com/photo-1587996833651-01a258b296e7", desc: "The Sulforaphane King.", nutrients: { "Sulforaphane": "50x Adult", "Vitamin K": "102mcg", "Vitamin A": "623IU", "Glucoraphanin": "High", "Selenium": "2.5mcg", "Calcium": "47mg", "Antioxidants": "Extreme" } },
+            { name: "Chickpea", img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e2", desc: "Warrior protein source.", nutrients: { "Protein": "19g", "Lysine": "1.4g", "Leucine": "1.3g", "Fiber": "17g", "Copper": "0.8mg", "Phosphorus": "366mg", "Magnesium": "115mg" } },
+            { name: "Lobia (Black Eye)", img: "https://images.unsplash.com/photo-1585912223916-430652d856d0", desc: "Heart health & energy.", nutrients: { "Protein": "23g", "Thiamin": "0.8mg", "Iron": "8mg", "Complex Carbs": "60g", "B6": "0.4mg", "Calcium": "110mg" } },
+            { name: "Horse Gram", img: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11", desc: "The ancient fatigue fighter.", nutrients: { "Protein": "22g", "Molybdenum": "High", "Iron": "7mg", "Phytic Acid": "Low (Sprouted)", "Phenols": "High" } },
+            { name: "Fenugreek (Methi)", img: "https://images.unsplash.com/photo-1599599810694-b5b37304c041", desc: "Blood sugar regulator.", nutrients: { "4-hydroxyisoleucine": "Active", "Saponins": "High", "Fiber": "25g", "Iron": "33mg", "Magnesium": "191mg" } },
+            { name: "Ragi (Finger Millet)", img: "https://images.unsplash.com/photo-1508013861974-9f6347163835", desc: "Highest calcium sprout.", nutrients: { "Calcium": "344mg", "Iron": "3.9mg", "Fiber": "11.5g", "Thiamin": "0.4mg", "Methionine": "High" } },
+            { name: "Brown Rice", img: "https://images.unsplash.com/photo-1586201375761-83865001e31c", desc: "GABA bio-optimized.", nutrients: { "GABA": "10x", "Magnesium": "143mg", "Vitamin E": "1.2mg", "Manganese": "3.7mg", "B3": "5mg" } },
+            { name: "Wheat Grass", img: "https://images.unsplash.com/photo-1544919982-b61976f0ba43", desc: "Living chlorophyll.", nutrients: { "Chlorophyll": "70%", "Vitamin A": "High", "Vitamin C": "High", "Vitamin E": "High", "Amino Acids": "17 Types", "Enzymes": "Superoxide Dismutase" } },
+            { name: "Moth Beans", img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e2", desc: "Deep muscle recovery.", nutrients: { "Protein": "23g", "Potassium": "1.1g", "Iron": "10mg", "Zinc": "3mg", "Fiber": "18g" } },
+            { name: "Pea", img: "https://images.unsplash.com/photo-1587996833651-01a258b296e7", desc: "Sweet nutrient density.", nutrients: { "Vitamin K": "25mcg", "Vitamin C": "40mg", "Protein": "5g", "Folate": "65mcg", "Vitamin A": "1100IU" } },
+            { name: "Groundnut", img: "https://images.unsplash.com/photo-1526947425960-945c6e72858f", desc: "Resveratrol source.", nutrients: { "Resveratrol": "High", "Niacin": "12mg", "Vitamin E": "8mg", "Folate": "240mcg", "Protein": "26g" } },
+            { name: "Halim (Garden Cress)", img: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11", desc: "Hemoglobin booster.", nutrients: { "Iron": "100mg+", "Vitamin C": "69mg", "Folic Acid": "80mcg", "Vitamin A": "346mcg", "Fiber": "7.6g" } }
         ];
 
-        let cart = [];
-        let currentItem = null;
-        let currentQty = 1;
-
-        function renderGallery() {
-            const gallery = document.getElementById('gallery');
-            gallery.innerHTML = inventory.map(item => `
-                <div class="sprout-card" onclick="openNutrients('${item.name}')">
-                    <img src="${item.img}" class="sprout-img">
-                    <div class="card-meta">
-                        <div style="font-family: 'Cinzel'; font-size: 1.2rem;">${item.name}</div>
-                        <div class="price-tag">₹${item.price} <span style="font-size: 0.7rem; color: #555;">/ 100g</span></div>
-                        <p style="font-size: 0.7rem; color: #888;">Click for detailed Bio-Profile</p>
+        function init() {
+            const gallery = document.getElementById('sproutGallery');
+            gallery.innerHTML = sprouts.map(s => `
+                <div class="sprout-card" onclick="showDetail('${s.name}')">
+                    <img src="${s.img}" alt="${s.name}">
+                    <div style="padding:20px;">
+                        <h3 style="font-family:'Cinzel'; margin:0; color:var(--gold);">${s.name}</h3>
+                        <p style="font-size:0.8rem; color:#888;">${s.desc}</p>
                     </div>
                 </div>
             `).join('');
         }
 
-        function openNutrients(name) {
-            currentItem = inventory.find(i => i.name === name);
-            currentQty = 1;
-            document.getElementById('modalTitle').innerText = currentItem.name + " (Nutrients per 100g)";
-            document.getElementById('modalQty').innerText = currentQty;
-            
-            const nList = document.getElementById('modalNutrients');
-            nList.innerHTML = Object.entries(currentItem.nutrients).map(([key, val]) => `
-                <div style="border-bottom: 1px solid #222; padding: 5px;">
-                    <span style="color:var(--gold)">${key}:</span> ${val}
-                </div>
+        function showDetail(name) {
+            const s = sprouts.find(x => x.name === name);
+            document.getElementById('m-name').innerText = s.name;
+            document.getElementById('m-desc').innerText = s.desc + " (Nutrients per 100g dry seed equivalent, sprouted)";
+            const nGrid = document.getElementById('m-nutrients');
+            nGrid.innerHTML = Object.entries(s.nutrients).map(([k, v]) => `
+                <div class="n-item"><span>${k}</span>${v}</div>
             `).join('');
-            
             document.getElementById('nutrientModal').style.display = 'block';
         }
 
-        function changeQty(amt) {
-            currentQty = Math.max(1, currentQty + amt);
-            document.getElementById('modalQty').innerText = currentQty;
-        }
-
-        function confirmAddToCart() {
-            cart.push({ ...currentItem, qty: currentQty });
-            document.getElementById('nutrientModal').style.display = 'none';
-            toggleCart();
-            renderCart();
-        }
-
-        function renderCart() {
-            const container = document.getElementById('cartItems');
-            container.innerHTML = cart.map((item, idx) => `
-                <div style="display:flex; justify-content:space-between; margin-bottom: 15px; font-size: 0.9rem;">
-                    <span>${item.name} (x${item.qty})</span>
-                    <span>₹${item.price * item.qty}</span>
-                </div>
-            `).join('');
-            if(cart.length > 0) document.getElementById('upiSection').style.display = 'block';
-        }
-
-        function toggleCart() {
-            document.getElementById('cartSide').classList.toggle('active');
-        }
-
-        function closeModal(e) {
-            document.getElementById('nutrientModal').style.display = 'none';
-        }
-
-        function checkout() {
-            let msg = `*BUDO LAB ORDER*%0A%0A`;
-            cart.forEach(i => msg += `• ${i.name} (Qty: ${i.qty})%0A`);
-            msg += `%0A*Date:* ${document.getElementById('delivDate').value}`;
-            msg += `%0A*Slot:* ${document.getElementById('delivSlot').value}`;
-            msg += `%0A*Address:* ${document.getElementById('address').value}`;
-            window.open(`https://wa.me/918766675187?text=${msg}`);
-        }
-
-        renderGallery();
+        init();
     </script>
 </body>
 </html>
