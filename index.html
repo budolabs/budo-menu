@@ -3,157 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BUDO | Zen Sprouts Catalogue</title>
+    <title>BUDO | Zen Harvest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --card-bg: #1a1a1a;
-            --accent: #d4af37; /* Gold accent for the Zen feel */
-            --text-main: #e0e0e0;
-            --text-dim: #a0a0a0;
+            --bg: #000000;
+            --surface: #111111;
+            --accent: #d4af37; /* Gold Warrior Accent */
+            --text: #ffffff;
+            --text-dim: #888888;
         }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        * { box-sizing: border-box; }
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; padding-bottom: 80px;
         }
 
-        header {
+        /* Hero / Logo Section */
+        .hero {
             text-align: center;
-            padding: 40px 20px;
-            border-bottom: 1px solid #333;
-            width: 100%;
+            padding: 60px 20px;
+            background: radial-gradient(circle, #1a1a1a 0%, #000000 70%);
         }
 
-        .logo {
-            width: 120px;
-            height: 120px;
+        .logo-container {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
             border-radius: 50%;
-            border: 2px solid var(--accent);
-            margin-bottom: 15px;
-            background: #222; /* Placeholder for your monk logo */
+            background-image: url('https://ibb.co/9Hn3FpvN'); /* Add your uploaded logo link here */
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
         }
 
-        h1 { font-weight: 300; letter-spacing: 4px; color: var(--accent); margin: 10px 0; }
-        .tagline { color: var(--text-dim); font-style: italic; margin-bottom: 20px; }
+        h1 { font-family: 'Cinzel', serif; letter-spacing: 5px; font-size: 2rem; margin: 0; }
+        .tagline { color: var(--accent); font-size: 0.8rem; letter-spacing: 3px; margin-top: 10px; opacity: 0.8; }
 
-        .container {
-            max-width: 1000px;
-            width: 90%;
-            margin: 40px 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
+        /* Navigation */
+        .view-section { display: none; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .view-section.active { display: block; animation: fadeIn 0.5s ease forwards; }
 
-        .category-title {
-            grid-column: 1 / -1;
-            border-left: 4px solid var(--accent);
-            padding-left: 15px;
-            font-size: 1.5rem;
-            margin-top: 20px;
-            letter-spacing: 2px;
-        }
+        /* Grid */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-        .card {
-            background: var(--card-bg);
+        .item-card {
+            background: var(--surface);
             border-radius: 12px;
             overflow: hidden;
-            transition: transform 0.3s ease;
             border: 1px solid #222;
         }
 
-        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
-
-        .card-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            filter: grayscale(30%);
+        .item-img {
+            width: 100%; height: 140px; object-fit: cover; opacity: 0.8;
         }
 
-        .card-content { padding: 20px; }
-        .card-title { font-size: 1.2rem; margin-bottom: 8px; color: var(--accent); }
-        .card-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.4; }
+        .item-info { padding: 15px; }
+        .item-title { font-weight: 600; font-size: 1rem; margin-bottom: 5px; }
+        .item-price { color: var(--accent); font-size: 0.9rem; margin-bottom: 10px; }
 
-        .order-btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
+        .btn {
             background: transparent;
             border: 1px solid var(--accent);
             color: var(--accent);
-            text-align: center;
-            text-decoration: none;
-            margin-top: 15px;
-            border-radius: 6px;
+            padding: 8px 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 4px;
             transition: 0.3s;
-            font-weight: bold;
+            font-size: 0.8rem;
         }
 
-        .order-btn:hover { background: var(--accent); color: black; }
+        .btn:hover { background: var(--accent); color: #000; }
 
-        footer { padding: 40px; color: #444; font-size: 0.8rem; letter-spacing: 1px; }
+        /* Cart & Tiers */
+        .cart-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; border-bottom: 1px solid #222;
+        }
+
+        .tier-selection {
+            margin: 20px 0; display: flex; gap: 10px;
+        }
+
+        .tier-box {
+            flex: 1; border: 1px solid #333; padding: 15px; border-radius: 8px; text-align: center; cursor: pointer;
+        }
+
+        .tier-box.selected { border-color: var(--accent); background: rgba(212, 175, 55, 0.1); }
+
+        .tier-box h4 { margin: 0 0 5px 0; color: var(--accent); }
+        .tier-box p { font-size: 0.7rem; color: var(--text-dim); margin: 0; }
+
+        input, select {
+            width: 100%; padding: 12px; background: #111; border: 1px solid #333; color: white; margin-top: 10px; border-radius: 5px;
+        }
+
+        /* Bottom Nav */
+        .nav-bar {
+            position: fixed; bottom: 0; width: 100%; background: #0a0a0a; border-top: 1px solid #222;
+            display: flex; justify-content: space-around; padding: 15px 0; z-index: 100;
+        }
+
+        .nav-item { color: var(--text-dim); text-decoration: none; font-size: 0.8rem; }
+        .nav-item.active { color: var(--accent); font-weight: bold; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <header>
-        <img src="https://via.placeholder.com/150" alt="Budo Logo" class="logo">
-        <h1>BUDO COLLECTIVE</h1>
-        <div class="tagline">STEALTH HARVEST • ANCIENT DISCIPLINE</div>
-    </header>
+<div class="hero">
+    <div class="logo-container"></div>
+    <h1>BUDO</h1>
+    <div class="tagline">ZEN SPROUTS • DISCIPLINED HARVEST</div>
+</div>
 
-    <div class="container">
-        <div class="category-title">CATEGORY A: ZEN SPROUTS</div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=500&q=80" class="card-img">
-            <div class="card-content">
-                <div class="card-title">1. Mung Bean</div>
-                <p class="card-desc">Crisp, refreshing, and vital. The foundation of the Budo diet.</p>
-                <a href="https://wa.me/YOURNUMBER?text=I'd%20like%20to%20order%20Mung%20Bean%20Sprouts" class="order-btn">ORDER VIA WHATSAPP</a>
-            </div>
+<div id="menu" class="view-section active">
+    <h3 style="border-left: 2px solid var(--accent); padding-left: 10px;">CATEGORY A: ZEN SPROUTS</h3>
+    <div class="grid" id="product-grid">
         </div>
+</div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1515543904379-3d757afe72e2?auto=format&fit=crop&w=500&q=80" class="card-img">
-            <div class="card-content">
-                <div class="card-title">2. Chickpea</div>
-                <p class="card-desc">Rich in protein and earthy flavor. Strengthens the warrior's spirit.</p>
-                <a href="#" class="order-btn">ORDER VIA WHATSAPP</a>
-            </div>
+<div id="cart" class="view-section">
+    <h3>YOUR ORDER</h3>
+    <div id="cart-items"></div>
+    
+    <div class="tier-selection">
+        <div class="tier-box selected" onclick="setTier('Economy')">
+            <h4>ECONOMY</h4>
+            <p>Recycled Zen Paper</p>
         </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1585912223916-430652d856d0?auto=format&fit=crop&w=500&q=80" class="card-img">
-            <div class="card-content">
-                <div class="card-title">3. Lobia Beans</div>
-                <p class="card-desc">Delicate black-eyed peas sprouted for maximum nutrient absorption.</p>
-                <a href="#" class="order-btn">ORDER VIA WHATSAPP</a>
-            </div>
+        <div class="tier-box" onclick="setTier('Superior')">
+            <h4>SUPERIOR</h4>
+            <p>Glass & Wood Accents</p>
         </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1599599810694-b5b37304c041?auto=format&fit=crop&w=500&q=80" class="card-img">
-            <div class="card-content">
-                <div class="card-title">8. Wheat Grass</div>
-                <p class="card-desc">The ultimate detox. Living chlorophyll grown in controlled silence.</p>
-                <a href="#" class="order-btn">ORDER VIA WHATSAPP</a>
-            </div>
-        </div>
-
     </div>
 
-    <footer>
-        &copy; 2026 BUDO BIOGENETICS. ALL RIGHTS RESERVED.
-    </footer>
+    <h4>DELIVERY SLOT</h4>
+    <input type="date" id="delivery-date">
+    <select id="delivery-time">
+        <option>Morning (06:00 - 09:00)</option>
+        <option>Evening (17:00 - 20:00)</option>
+    </select>
+
+    <button class="btn" style="margin-top: 30px; padding: 15px; font-size: 1rem;" onclick="sendOrder()">CONFIRM ORDER (WHATSAPP)</button>
+</div>
+
+<div class="nav-bar">
+    <a href="#" class="nav-item active" onclick="showView('menu')">CATALOGUE</a>
+    <a href="#" class="nav-item" onclick="showView('cart')">CART (<span id="cart-count">0</span>)</a>
+</div>
+
+<script>
+    const products = [
+        { id: 1, name: "Mung Bean", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=300" },
+        { id: 2, name: "Chickpea", img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e2?q=80&w=300" },
+        { id: 3, name: "Lobia Beans", img: "https://images.unsplash.com/photo-1585912223916-430652d856d0?q=80&w=300" },
+        { id: 4, name: "Horse Gram", img: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11?q=80&w=300" },
+        { id: 5, name: "Methi Fenugreek", img: "https://images.unsplash.com/photo-1599599810694-b5b37304c041?q=80&w=300" },
+        { id: 6, name: "Ragi", img: "https://images.unsplash.com/photo-1508013861974-9f6347163835?q=80&w=300" },
+        { id: 7, name: "Brown Rice", img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=300" },
+        { id: 8, name: "Wheat Grass", img: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=300" },
+        { id: 9, name: "Moth Beans", img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e2?q=80&w=300" },
+        { id: 10, name: "Pea", img: "https://images.unsplash.com/photo-1587996833651-01a258b296e7?q=80&w=300" },
+        { id: 11, name: "Groundnut", img: "https://images.unsplash.com/photo-1526947425960-945c6e72858f?q=80&w=300" },
+        { id: 12, name: "Halim", img: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11?q=80&w=300" },
+        { id: 13, name: "Masoor", img: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=300" }
+    ];
+
+    let cart = [];
+    let selectedTier = "Economy";
+
+    function renderProducts() {
+        const grid = document.getElementById('product-grid');
+        grid.innerHTML = products.map(p => `
+            <div class="item-card">
+                <img src="${p.img}" class="item-img">
+                <div class="item-info">
+                    <div class="item-title">${p.name}</div>
+                    <div class="item-price">Organic Sprout</div>
+                    <button class="btn" onclick="addToCart(${p.id})">+ ADD TO CART</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function addToCart(id) {
+        const p = products.find(x => x.id === id);
+        const exists = cart.find(x => x.id === id);
+        if (exists) { exists.qty++; } else { cart.push({...p, qty: 1}); }
+        updateCartCount();
+        alert(p.name + " added to harvest basket.");
+    }
+
+    function updateCartCount() {
+        document.getElementById('cart-count').innerText = cart.reduce((acc, item) => acc + item.qty, 0);
+    }
+
+    function showView(viewId) {
+        document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+        document.getElementById(viewId).classList.add('active');
+        if(viewId === 'cart') renderCart();
+    }
+
+    function renderCart() {
+        const container = document.getElementById('cart-items');
+        if (cart.length === 0) {
+            container.innerHTML = "<p style='color:#666'>Your basket is empty.</p>";
+            return;
+        }
+        container.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                <div>
+                    <div>${item.name}</div>
+                    <div style="font-size:0.7rem; color:var(--accent)">Qty: ${item.qty}</div>
+                </div>
+                <button onclick="removeFromCart(${item.id})" style="background:none; border:none; color:red; cursor:pointer;">Remove</button>
+            </div>
+        `).join('');
+    }
+
+    function removeFromCart(id) {
+        cart = cart.filter(x => x.id !== id);
+        renderCart();
+        updateCartCount();
+    }
+
+    function setTier(t) {
+        selectedTier = t;
+        document.querySelectorAll('.tier-box').forEach(b => b.classList.remove('selected'));
+        event.currentTarget.classList.add('selected');
+    }
+
+    function sendOrder() {
+        if(cart.length === 0) return alert("Basket is empty");
+        let msg = `*BUDO ORDER*%0A------------------%0A`;
+        cart.forEach(i => msg += `• ${i.name} (x${i.qty})%0A`);
+        msg += `------------------%0A*Tier:* ${selectedTier}%0A*Date:* ${document.getElementById('delivery-date').value}%0A*Slot:* ${document.getElementById('delivery-time').value}`;
+        
+        window.open(`https://wa.me/919198910489?text=${msg}`);
+    }
+
+    renderProducts();
+</script>
 
 </body>
 </html>
