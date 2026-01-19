@@ -3,295 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BUDO | Biogenetic Lab & Apothecary</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <title>BUDO | The Biogenetic Apothecary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Noto+Serif+JP:wght@200;500&family=Inter:wght@200;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #d4af37;
-            --bg: #000000;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --bg: #030303;
             --surface: #0a0a0a;
-            --text: #ffffff;
-            --accent-glow: rgba(212, 175, 55, 0.15);
-            --zen-green: #2d5a27;
+            --text: #e0e0e0;
         }
 
-        /* --- IMMERSIVE ANIMATIONS --- */
-        @keyframes rotateMandala { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes pulseHalo { 
-            0% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); transform: scale(1); } 
-            50% { box-shadow: 0 0 60px rgba(212, 175, 55, 0.5); transform: scale(1.02); } 
-            100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); transform: scale(1); } 
-        }
-        @keyframes dnaRotate { 0% { transform: rotateY(0deg) translateZ(0); } 100% { transform: rotateY(360deg) translateZ(50px); } }
-        @keyframes floating { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-
-        * { box-sizing: border-box; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        * { box-sizing: border-box; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         body { 
-            background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; 
-            margin: 0; overflow-x: hidden; scroll-behavior: smooth;
+            background: var(--bg); color: var(--text); 
+            font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 50%, #111 0%, #000 100%);
         }
 
-        /* --- HERO SECTION --- */
+        /* --- THE GOLDEN RIPPLE LOGO --- */
         .hero {
-            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: radial-gradient(circle at center, #111 0%, #000 100%); position: relative;
-            text-align: center; overflow: hidden;
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; position: relative; overflow: hidden;
         }
 
-        .dna-decoration {
-            position: absolute; font-size: 15rem; opacity: 0.03; font-family: 'Cinzel';
-            animation: dnaRotate 15s infinite linear; pointer-events: none;
+        .ripple-container {
+            position: relative; width: 220px; height: 220px;
+            display: flex; justify-content: center; align-items: center;
         }
 
-        .logo-container {
-            width: 250px; height: 250px; border-radius: 50%;
-            background: url('https://i.ibb.co/YyYf8qW/Budo-Logo.png') no-repeat center;
-            background-size: contain; animation: pulseHalo 4s infinite ease-in-out;
-            margin-bottom: 30px; position: relative; z-index: 5;
+        .ripple {
+            position: absolute; border: 1px solid var(--gold);
+            border-radius: 50%; opacity: 0; pointer-events: none;
+            animation: ripple-effect 5s infinite ease-out;
+        }
+        .ripple:nth-child(2) { animation-delay: 1.2s; }
+        .ripple:nth-child(3) { animation-delay: 2.4s; }
+
+        @keyframes ripple-effect {
+            0% { width: 150px; height: 150px; opacity: 0.6; border-width: 2px; }
+            100% { width: 1200px; height: 1200px; opacity: 0; border-width: 0.5px; }
         }
 
-        h1 { font-family: 'Cinzel', serif; letter-spacing: 15px; font-size: 3.5rem; color: var(--gold); margin: 0; }
-        .hero p { letter-spacing: 5px; font-weight: 200; color: var(--gold); opacity: 0.8; margin-top: 10px; }
-
-        /* --- SECTIONS & CONTAINERS --- */
-        .container { max-width: 1200px; margin: auto; padding: 60px 20px; }
-        .section-title { font-family: 'Cinzel'; border-left: 4px solid var(--gold); padding-left: 20px; margin-bottom: 40px; letter-spacing: 4px; font-size: 1.8rem; }
-
-        /* --- CITIZEN SCIENCE BANNER --- */
-        .science-portal {
-            background: linear-gradient(135deg, #050505 0%, #111 100%);
-            padding: 50px; border-radius: 30px; border: 1px solid var(--gold);
-            text-align: center; margin-bottom: 80px; position: relative;
+        .budo-logo {
+            width: 200px; height: 200px; border-radius: 50%;
+            background: black url('https://i.ibb.co/FvHF0fs/Budo-Logo.png') no-repeat center;
+            background-size: 90%; z-index: 10; border: 2px solid var(--gold);
+            box-shadow: 0 0 30px var(--gold-glow);
         }
 
-        /* --- SPROUT CARDS --- */
-        .sprout-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        h1 { font-family: 'Cinzel Decorative', serif; font-size: 4.5rem; color: var(--gold); letter-spacing: 15px; margin: 30px 0 0; }
+        .hero p { font-family: 'Noto Serif JP'; font-weight: 200; letter-spacing: 8px; color: var(--gold); opacity: 0.7; }
+
+        /* --- ZEN BONSAI ELEMENTS --- */
+        .bonsai-decoration {
+            position: fixed; bottom: -50px; left: -30px; width: 450px; height: 450px;
+            background: url('https://i.ibb.co/0fVfF0d/bonsai-silhouette.png') no-repeat center;
+            background-size: contain; opacity: 0.12; pointer-events: none; z-index: 0; transform: scaleX(-1);
+        }
+
+        /* --- GRID & CARDS --- */
+        .container { max-width: 1400px; margin: auto; padding: 100px 20px; position: relative; z-index: 2; }
+        .sprout-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; }
+
         .sprout-card {
-            background: var(--surface); border: 1px solid #1a1a1a; border-radius: 20px;
-            overflow: hidden; cursor: pointer; position: relative;
+            background: rgba(10, 10, 10, 0.8); border: 1px solid #1a1a1a; 
+            padding: 25px; cursor: pointer; backdrop-filter: blur(5px);
         }
-        .sprout-card:hover { border-color: var(--gold); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1); }
-        .sprout-card img { width: 100%; height: 250px; object-fit: cover; filter: grayscale(100%); }
-        .sprout-card:hover img { filter: grayscale(0%); transform: scale(1.05); }
-
-        .card-info { padding: 25px; }
-        .card-info h3 { font-family: 'Cinzel'; color: var(--gold); margin: 0 0 10px 0; }
+        .sprout-card:hover { border-color: var(--gold); transform: translateY(-10px); background: #111; }
         
-        /* --- MANDALA BUTTONS --- */
-        .mandala-btn {
-            background: var(--gold); color: black; border: none; padding: 18px 45px;
-            font-weight: 700; border-radius: 50px; cursor: pointer;
-            display: inline-flex; align-items: center; gap: 12px; letter-spacing: 2px;
-            text-transform: uppercase; font-size: 0.8rem;
-        }
-        .mandala-btn:hover { background: #fff; transform: scale(1.05); }
-        .mandala-icon {
-            width: 22px; height: 22px; 
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20M5.6 5.6l12.8 12.8M5.6 18.4L18.4 5.6"/></svg>');
-            animation: rotateMandala 6s infinite linear;
-        }
+        .img-box { width: 100%; height: 280px; background: #000; border: 1px solid #222; overflow: hidden; margin-bottom: 20px; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; filter: sepia(30%); }
 
-        /* --- NUTRIENT MODAL --- */
+        /* --- CRONOMETER MODAL --- */
         .modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
-            display: none; z-index: 10000; padding: 40px 20px; overflow-y: auto; backdrop-filter: blur(10px);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.98); 
+            display: none; z-index: 2000; padding: 40px; overflow-y: scroll;
         }
-        .modal-content { max-width: 850px; margin: auto; background: #080808; border: 1px solid var(--gold); padding: 50px; border-radius: 40px; }
+        .modal-content { max-width: 1100px; margin: auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; }
         
-        .nutrient-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 30px; }
-        .n-item { background: #111; padding: 15px; border-radius: 12px; border: 1px solid #222; }
-        .n-item span { color: var(--gold); display: block; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 5px; }
-        .n-item b { font-size: 1.1rem; }
+        .nutrient-table { font-size: 0.85rem; border-top: 1px solid var(--gold); }
+        .n-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #1a1a1a; }
+        .n-header { color: var(--gold); font-family: 'Cinzel Decorative'; padding: 20px 0 10px; font-size: 1.1rem; }
 
-        /* --- SUBSCRIPTION TIERS --- */
-        .tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 40px; }
-        .tier-card { 
-            background: #0d0d0d; padding: 40px 20px; border-radius: 25px; text-align: center; 
-            border: 1px solid #222; position: relative;
-        }
-        .tier-card:hover { border-color: var(--gold); background: #111; transform: translateY(-10px); }
-        .tier-card h3 { font-family: 'Cinzel'; color: var(--gold); }
-        .price { font-size: 2rem; font-weight: bold; margin: 20px 0; }
+        .manuscript { font-family: 'Noto Serif JP', serif; line-height: 2; color: #bbb; border-left: 1px solid var(--gold); padding-left: 30px; }
+        .manuscript h3 { color: var(--gold); font-family: 'Cinzel Decorative'; margin-bottom: 20px; }
 
-        /* --- BASKET & FORMS --- */
-        .basket-container {
-            background: #0a0a0a; border: 1px solid var(--gold); border-radius: 30px; padding: 40px; margin-top: 60px;
+        .btn-zen {
+            background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            padding: 15px 35px; cursor: pointer; font-family: 'Cinzel Decorative';
+            letter-spacing: 3px; font-size: 0.9rem; margin-top: 20px;
         }
-        input, textarea, select {
-            width: 100%; padding: 15px; background: #111; border: 1px solid #333; color: white; border-radius: 10px; margin-bottom: 20px;
+        .btn-zen:hover { background: var(--gold); color: black; box-shadow: 0 0 20px var(--gold-glow); }
+
+        /* --- WHATSAPP BASKET --- */
+        .cart-toggle {
+            position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px;
+            background: var(--gold); border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; cursor: pointer; z-index: 1500; box-shadow: 0 0 20px black;
         }
 
-        .live-label {
-            display: inline-block; background: #ff0000; color: white; padding: 5px 15px; 
-            border-radius: 5px; font-weight: bold; font-size: 0.7rem; margin-bottom: 20px;
+        #cartView {
+            position: fixed; right: -400px; top: 0; width: 400px; height: 100%;
+            background: #050505; border-left: 1px solid var(--gold); z-index: 1800; padding: 40px;
         }
-
+        #cartView.active { right: 0; }
     </style>
 </head>
 <body>
 
+    <div class="bonsai-decoration"></div>
+
     <section class="hero">
-        <div class="dna-decoration">🧬</div>
-        <div class="logo-container"></div>
+        <div class="ripple-container">
+            <div class="ripple"></div><div class="ripple"></div><div class="ripple"></div>
+            <div class="budo-logo"></div>
+        </div>
         <h1>BUDO</h1>
-        <p>LAB & APOTHECARY</p>
-        <br><br>
-        <button class="mandala-btn" onclick="document.getElementById('catalog').scrollIntoView()">
-            <div class="mandala-icon"></div> Enter Laboratory
-        </button>
+        <p>THE BIOGENETIC APOTHECARY</p>
     </section>
 
-    <div class="container" id="catalog">
-        
-        <div class="science-portal">
-            <h2 style="font-family: 'Cinzel'; margin: 0 0 15px 0;">Citizen Science Experiment</h2>
-            <p style="color: #888; max-width: 600px; margin: auto; line-height: 1.6;">
-                We are currently mapping the effects of <b>528Hz Frequency</b> and <b>specific light wavelengths</b> on Sulforaphane and GABA levels. 
-                Register to receive research-grade harvest at 0% profit margins.
-            </p>
-            <br>
-            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                <input type="email" placeholder="Citizen Email ID" style="width: 300px; margin-bottom: 0;">
-                <button class="mandala-btn">Register</button>
-            </div>
-        </div>
-
-        <h2 class="section-title">Current Harvest Catalogue</h2>
+    <div class="container" id="main">
+        <h2 style="font-family: 'Cinzel Decorative'; color: var(--gold); text-align: center; margin-bottom: 80px; letter-spacing: 5px;">ACTIVE BIOGENIC HARVEST</h2>
         <div class="sprout-grid" id="sproutGallery"></div>
 
-        <h2 class="section-title" style="margin-top: 100px;">Subscription Protocols</h2>
-        <div class="tier-grid">
-            <div class="tier-card"><h3>MONK</h3><div class="price">₹999</div><p>Basic Weekly Ritual</p></div>
-            <div class="tier-card"><h3>WARRIOR</h3><div class="price">₹1899</div><p>High Protein Focus</p></div>
-            <div class="tier-card"><h3>SAGE</h3><div class="price">₹2999</div><p>Longevity & GABA</p></div>
-            <div class="tier-card"><h3>SHOGUN</h3><div class="price">₹4599</div><p>Full Lab Access</p></div>
-            <div class="tier-card"><h3>ZENITH</h3><div class="price">Custom</div><p>Bio-Personalized</p></div>
-        </div>
+        <h2 style="font-family: 'Cinzel Decorative'; color: var(--gold); margin: 120px 0 60px;">SUBSCRIPTION PROTOCOLS</h2>
+        <div class="sprout-grid" id="subGrid"></div>
 
-        <h2 class="section-title" style="margin-top: 100px;">Budo Lab 24/7 Feed</h2>
-        <div style="width:100%; height:450px; background:#050505; border-radius:30px; border:1px solid #222; display:flex; flex-direction:column; justify-content:center; align-items:center;">
-            <div class="live-label">2K BROADCAST LIVE</div>
-            <div class="mandala-icon" style="width:50px; height:50px; opacity:0.2;"></div>
-            <p style="color:#444; margin-top:20px;">Establishing secure link to 2K growth-chamber cam...</p>
-        </div>
-
-        <div id="checkoutArea" class="basket-container" style="display: none;">
-            <h2 style="font-family:'Cinzel'; color:var(--gold);">Harvest Basket</h2>
-            <div id="basketItems" style="margin-bottom: 30px;"></div>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <input type="text" id="custName" placeholder="Full Name">
-                <select id="custSlot">
-                    <option value="Pre-Work (6-8 AM)">Pre-Work (06:00 - 08:00)</option>
-                    <option value="Post-Work (7-9 PM)">Post-Work (19:00 - 21:00)</option>
-                </select>
+        <div style="margin-top: 150px; border-top: 1px solid #222; padding-top: 80px;">
+            <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px;">
+                <div class="sprout-card">
+                    <h3 style="font-family:'Cinzel Decorative'; color:var(--gold);">RECIPE: THE BUDO ELIXIR</h3>
+                    <p style="font-size: 0.9rem; color:#888;">Sprouted Wheatgrass, cold-pressed with Green Apple and a pinch of activated Ragi flour. The ultimate protocol for heavy metal detoxification.</p>
+                </div>
+                <div class="sprout-card">
+                    <h3 style="font-family:'Cinzel Decorative'; color:var(--gold);">THE SCIENCE OF FREQUENCY</h3>
+                    <p style="font-size: 0.9rem; color:#888;">Our current experiment maps the growth response of Broccoli sprouts to 528Hz (The Love Frequency). Early data shows a 12% increase in Sulforaphane concentration under these conditions.</p>
+                </div>
             </div>
-            <textarea id="custAddress" placeholder="Delivery Address & Instructions"></textarea>
-            
-            <div style="text-align: center; background: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; width: 200px; margin-inline: auto;">
-                <p style="color: black; font-size: 0.7rem; font-weight: bold; margin-bottom: 10px;">SCAN TO PAY (UPI)</p>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=YOURUPI@ID&pn=BUDO" style="width:150px;">
-            </div>
-
-            <button class="mandala-btn" style="width: 100%; justify-content: center;" onclick="sendWhatsApp()">
-                <div class="mandala-icon"></div> Confirm & Send to WhatsApp
-            </button>
         </div>
-
     </div>
 
-    <div id="nutrientModal" class="modal" onclick="this.style.display='none'">
+    <div id="bioModal" class="modal" onclick="this.style.display='none'">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <h2 id="m-name" style="font-family:'Cinzel'; color:var(--gold); font-size: 2.5rem; margin:0;"></h2>
-            <p id="m-desc" style="color:#888; font-size: 1.1rem; border-bottom: 1px solid #222; padding-bottom: 20px;"></p>
-            
-            <h4 style="font-family:'Cinzel'; color:var(--gold); margin-top:30px;">Bio-Profile (Per 100g Sprouted)</h4>
-            <div class="nutrient-grid" id="m-nutrients"></div>
-
-            <div style="margin-top: 40px; display: flex; align-items: center; gap: 20px;">
-                <button class="mandala-btn" onclick="addToBasket()">Add to Protocol</button>
-                <div style="color: #555; font-size: 0.8rem;">Packaging: Bio-degradable Zen Paper</div>
+            <div>
+                <h2 id="mName" style="font-family:'Cinzel Decorative'; color:var(--gold); font-size:3rem; margin:0;"></h2>
+                <div class="manuscript" id="mHistory"></div>
+            </div>
+            <div>
+                <div class="nutrient-table" id="mNutrients"></div>
+                <button class="btn-zen" style="width:100%" onclick="addToCart()">ADD TO HARVEST BUNDLE</button>
             </div>
         </div>
+    </div>
+
+    <div class="cart-toggle" onclick="toggleCart()">🛒</div>
+    <div id="cartView">
+        <h2 style="font-family:'Cinzel Decorative'; color:var(--gold);">YOUR BASKET</h2>
+        <div id="cartItems" style="margin: 40px 0;"></div>
+        <input type="text" id="custName" placeholder="Citizen Name" style="width:100%; padding:15px; background:#111; border:1px solid #333; color:white; margin-bottom:10px;">
+        <textarea id="custAddr" placeholder="Delivery Address & Instructions" style="width:100%; padding:15px; background:#111; border:1px solid #333; color:white; height:100px;"></textarea>
+        <button class="btn-zen" style="width:100%" onclick="checkout()">WHATSAPP ORDER</button>
+        <button class="btn-zen" style="width:100%; border:none; color:#555;" onclick="toggleCart()">CLOSE</button>
     </div>
 
     <script>
-        // --- CONFIGURATION ---
-        const WHATSAPP_NUMBER = "91XXXXXXXXXX"; // <--- CHANGE THIS
-
         const sprouts = [
-            { name: "Mung Bean", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd", desc: "The foundational vitality sprout for daily detoxification.", nutrients: { "Protein": "24g", "Iron": "6.7mg", "Folate": "625mcg", "Fiber": "16g", "Vitamin C": "13.2mg", "Potassium": "1.2g", "B1": "0.6mg", "Zinc": "2.7mg" } },
-            { name: "Broccoli", img: "https://images.unsplash.com/photo-1587996833651-01a258b296e7", desc: "Highest Sulforaphane density in the world. Genetic defense.", nutrients: { "Sulforaphane": "Extreme", "Vitamin K": "102mcg", "Glucoraphanin": "400mg", "Selenium": "2.5mcg", "Vitamin A": "623IU", "Calcium": "47mg" } },
-            { name: "Chickpea", img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e2", desc: "Power sprout for physical strength and recovery.", nutrients: { "Protein": "19g", "Lysine": "1.4g", "Leucine": "1.3g", "Manganese": "2mg", "Fiber": "17g", "Copper": "0.8mg" } },
-            { name: "Lobia", img: "https://images.unsplash.com/photo-1585912223916-430652d856d0", desc: "Traditional black-eyed pea for cardiac health.", nutrients: { "Protein": "23g", "Thiamin": "0.8mg", "Iron": "8.2mg", "B6": "0.4mg", "Magnesium": "180mg" } },
-            { name: "Horse Gram", img: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11", desc: "Ancient energy source to combat fatigue.", nutrients: { "Protein": "22g", "Iron": "7mg", "Calcium": "287mg", "Phenols": "High", "Molybdenum": "Present" } },
-            { name: "Fenugreek", img: "https://images.unsplash.com/photo-1599599810694-b5b37304c041", desc: "Blood glucose and hormonal optimizer.", nutrients: { "Iron": "33mg", "Fiber": "25g", "Magnesium": "191mg", "4-hydroxyisoleucine": "Active", "Saponins": "High" } },
-            { name: "Ragi", img: "https://images.unsplash.com/photo-1508013861974-9f6347163835", desc: "Mineral-rich finger millet for skeletal density.", nutrients: { "Calcium": "344mg", "Iron": "3.9mg", "Fiber": "11g", "Thiamin": "0.42mg", "Methionine": "High" } },
-            { name: "Brown Rice", img: "https://images.unsplash.com/photo-1586201375761-83865001e31c", desc: "GABA-boosted germinated brown rice for mental peace.", nutrients: { "GABA": "High", "Manganese": "3.7mg", "Magnesium": "143mg", "B3": "5.1mg", "B6": "0.6mg" } },
-            { name: "Wheat Grass", img: "https://images.unsplash.com/photo-1544919982-b61976f0ba43", desc: "Pure liquid sunshine and blood purifier.", nutrients: { "Chlorophyll": "70%", "Vitamin A": "Extreme", "Vitamin E": "High", "Amino Acids": "17 Types", "Enzymes": "Present" } },
-            { name: "Moth Beans", img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e2", desc: "High-nutrient pulse for cell regeneration.", nutrients: { "Protein": "23g", "Zinc": "3mg", "Potassium": "1.1g", "Phosphorus": "389mg", "Iron": "10mg" } },
-            { name: "Pea", img: "https://images.unsplash.com/photo-1587996833651-01a258b296e7", desc: "Sweet, vitamin-rich shoots for vision and immunity.", nutrients: { "Vitamin K": "25mcg", "Vitamin C": "40mg", "Folate": "65mcg", "Vitamin A": "1100IU", "Fiber": "5g" } },
-            { name: "Groundnut", img: "https://images.unsplash.com/photo-1526947425960-945c6e72858f", desc: "Resveratrol-rich sprouted peanuts for longevity.", nutrients: { "Resveratrol": "Present", "Protein": "26g", "Vitamin E": "8.3mg", "Niacin": "12mg", "Folate": "240mcg" } },
-            { name: "Halim", img: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11", desc: "Ultimate iron-booster for blood vitality.", nutrients: { "Iron": "100mg", "Folic Acid": "80mcg", "Vitamin C": "69mg", "Calcium": "377mg", "Vitamin A": "346mcg" } }
+            { name: "Mung Bean", price: 150, size: "250g", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd", history: "Cultivated since 1500 BC in the Indus Valley, the Mung is the 'Sattvic' staple. Sprouting it breaks down the oligosaccharides that cause gas, transforming a simple bean into a high-octane enzyme source.", nutrients: {"Macros": {"Calories": "105", "Protein": "7g", "Fiber": "5g"}, "Micros": {"Folate": "40%", "Iron": "15%", "Vitamin C": "22%"}, "Bio-Actives": {"Vitexin": "High", "Isovitexin": "Active"}} },
+            { name: "Broccoli", price: 650, size: "100g", img: "https://images.unsplash.com/photo-1587996833651-01a258b296e7", history: "The zenith of biogenic lab tech. Broccoli sprouts are concentrated Sulforaphane factories, acting as a molecular switch for your body's Nrf2 antioxidant defense system.", nutrients: {"Enzymes": {"Sulforaphane": "1150mg", "Myrosinase": "Activated"}, "Vitamins": {"Vitamin K": "101mcg", "Vitamin C": "150mg"}, "Minerals": {"Selenium": "2.5mcg", "Zinc": "0.4mg"}} },
+            { name: "Chickpea", price: 180, size: "250g", img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e2", history: "Known as the Garbanzo, this sprout was the fuel of the Roman Legion. Sprouting doubles the Lysine content, making it a complete protein for the modern warrior.", nutrients: {"Protein": {"Lysine": "1.4g", "Leucine": "1.3g", "Total": "19g"}, "Minerals": {"Manganese": "2mg", "Copper": "0.8mg", "Phosphorus": "366mg"}} },
+            { name: "Lobia", price: 160, size: "250g", img: "https://images.unsplash.com/photo-1585912223916-430652d856d0", history: "Black-eyed peas carry a deep West African heritage. They are the 'Heart Vitalizers' in our apothecary, rich in Thiamine for cardiac nerve signaling.", nutrients: {"Heart Health": {"Thiamine": "0.8mg", "Potassium": "1.1g"}, "Macros": {"Protein": "23g", "Carbs": "Slow-release"}} },
+            { name: "Horse Gram", price: 190, size: "250g", img: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11", history: "The secret of Ayurvedic endurance. Sprouting this ancient legume neutralizes phytic acid, releasing massive amounts of iron and molybdenum for stamina.", nutrients: {"Endurance": {"Iron": "7.5mg", "Calcium": "287mg"}, "Phenols": {"Kaempferol": "Present", "Quercetin": "High"}} },
+            { name: "Fenugreek", price: 210, size: "150g", img: "https://images.unsplash.com/photo-1599599810694-b5b37304c041", history: "The Apothecary's insulin. Fenugreek sprouts contain 4-hydroxyisoleucine, which stimulates insulin secretion only when blood sugar is high.", nutrients: {"Bio-Actives": {"4-hydroxyisoleucine": "Active", "Saponins": "High"}, "Minerals": {"Iron": "33mg", "Magnesium": "191mg"}} },
+            { name: "Ragi", price: 180, size: "250g", img: "https://images.unsplash.com/photo-1508013861974-9f6347163835", history: "The Finger Millet is a calcium powerhouse. When sprouted, its calcium bioavailability is unmatched by any other grain on the planet.", nutrients: {"Skeletal": {"Calcium": "344mg", "Phosphorus": "283mg"}, "Macros": {"Fiber": "11.5g", "Methionine": "High"}} },
+            { name: "Brown Rice", img: "https://images.unsplash.com/photo-1586201375761-83865001e31c", price: 250, size: "250g", history: "Germinated Brown Rice (GBR) is a mental health protocol. The sprouting process triggers a 10x increase in GABA to calm the central nervous system.", nutrients: {"Neuro": {"GABA": "High", "B6": "0.6mg"}, "Energy": {"Magnesium": "143mg", "Manganese": "3.7mg"}} },
+            { name: "Wheat Grass", img: "https://images.unsplash.com/photo-1544919982-b61976f0ba43", price: 400, size: "100g", history: "Living Chlorophyll. It is chemically almost identical to hemoglobin, allowing for rapid blood purification and systemic alkalization.", nutrients: {"Blood": {"Chlorophyll": "70%", "Iron": "High"}, "Enzymes": {"Superoxide Dismutase": "High", "Cytochrome": "Active"}} },
+            { name: "Moth Beans", img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e2", price: 170, size: "250g", history: "Highly drought-resistant pulse from Rajasthan. It is the Apothecary's choice for deep tissue repair and zinc supplementation.", nutrients: {"Recovery": {"Zinc": "3mg", "Protein": "23g"}, "Minerals": {"Potassium": "1.1g", "Iron": "10mg"}} },
+            { name: "Pea", img: "https://images.unsplash.com/photo-1587996833651-01a258b296e7", price: 220, size: "150g", history: "Sweet, leafy vitality. Sprouted peas contain high levels of Vitamin K1 for bone matrix formation and cardiovascular elasticity.", nutrients: {"Bone": {"Vitamin K": "25mcg", "Calcium": "Present"}, "Vision": {"Vitamin A": "1100 IU", "Lutein": "High"}} },
+            { name: "Groundnut", img: "https://images.unsplash.com/photo-1526947425960-945c6e72858f", price: 200, size: "200g", history: "The Resveratrol source. Sprouting peanuts creates a massive spike in polyphenols, mirroring the heart-protective benefits of red wine without the alcohol.", nutrients: {"Longevity": {"Resveratrol": "High", "Niacin": "12mg"}, "Healthy Fats": {"Omega 6": "4g", "Oleic Acid": "High"}} },
+            { name: "Halim", img: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11", price: 300, size: "100g", history: "Garden Cress is the ultimate 'Hema-Protocol'. It contains an unprecedented 100mg of Iron per 100g, making it the fastest way to correct anemia naturally.", nutrients: {"Blood": {"Iron": "100mg", "Folic Acid": "80mcg"}, "Immune": {"Vitamin C": "69mg", "Vitamin A": "346mcg"}} }
         ];
 
-        let basket = [];
-        let selectedSprout = null;
+        let cart = [];
+        let currentItem = null;
 
         function render() {
             const gallery = document.getElementById('sproutGallery');
             gallery.innerHTML = sprouts.map(s => `
-                <div class="sprout-card" onclick="openModal('${s.name}')">
-                    <img src="${s.img}" alt="${s.name}">
-                    <div class="card-info">
-                        <h3>${s.name}</h3>
-                        <p style="font-size:0.8rem; color:#666;">${s.desc}</p>
-                        <div style="color:var(--gold); font-size:0.7rem; margin-top:10px; font-weight:bold;">VIEW BIO-PROFILE</div>
+                <div class="sprout-card" onclick="openBio('${s.name}')">
+                    <div class="img-box">
+                        <img src="${s.img}" onerror="this.src='https://via.placeholder.com/400x250/000000/d4af37?text=${s.name}'">
                     </div>
+                    <h3 style="font-family:'Cinzel Decorative'; color:var(--gold); margin:0;">${s.name}</h3>
+                    <p style="color:#666; font-size:0.8rem;">Protocol Size: ${s.size}</p>
+                    <div style="margin-top:15px; font-weight:bold; color:var(--gold);">₹${s.price}</div>
                 </div>
             `).join('');
-        }
-
-        function openModal(name) {
-            selectedSprout = sprouts.find(x => x.name === name);
-            document.getElementById('m-name').innerText = selectedSprout.name;
-            document.getElementById('m-desc').innerText = selectedSprout.desc;
-            const nGrid = document.getElementById('m-nutrients');
-            nGrid.innerHTML = Object.entries(selectedSprout.nutrients).map(([k,v]) => `
-                <div class="n-item"><span>${k}</span><b>${v}</b></div>
-            `).join('');
-            document.getElementById('nutrientModal').style.display = 'block';
-        }
-
-        function addToBasket() {
-            basket.push(selectedSprout.name);
-            document.getElementById('nutrientModal').style.display = 'none';
-            document.getElementById('checkoutArea').style.display = 'block';
-            renderBasket();
-        }
-
-        function renderBasket() {
-            const list = document.getElementById('basketItems');
-            list.innerHTML = basket.map((item, idx) => `
-                <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #222;">
-                    <span>${item}</span>
-                    <button onclick="basket.splice(${idx},1); renderBasket();" style="background:none; border:none; color:red; cursor:pointer;">Remove</button>
-                </div>
-            `).join('');
-            if(basket.length === 0) document.getElementById('checkoutArea').style.display = 'none';
-        }
-
-        function sendWhatsApp() {
-            const name = document.getElementById('custName').value;
-            const slot = document.getElementById('custSlot').value;
-            const address = document.getElementById('custAddress').value;
-            if(!name || !address) return alert("Details incomplete.");
-
-            let msg = `*BUDO LAB ORDER*%0A*Citizen:* ${name}%0A-----------------%0A`;
-            basket.forEach(item => msg += `• ${item}%0A`);
-            msg += `-----------------%0A*Slot:* ${slot}%0A*Address:* ${address}`;
             
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`);
+            const subs = [
+                {name: "MONK", includes: "Daily Mung/Lobia Mix", price: "999/wk"},
+                {name: "WARRIOR", includes: "Horse Gram & Chickpea", price: "1899/wk"},
+                {name: "SAGE", includes: "GABA Rice & Broccoli", price: "2999/wk"}
+            ];
+            document.getElementById('subGrid').innerHTML = subs.map(sub => `
+                <div class="sprout-card" style="text-align:center;">
+                    <h2 style="font-family:'Cinzel Decorative'; color:var(--gold);">${sub.name}</h2>
+                    <p style="font-size:0.8rem; color:#888;">${sub.includes}</p>
+                    <div style="font-size:1.5rem; margin:20px 0;">${sub.price}</div>
+                    <button class="btn-zen" onclick="alert('Protocol Initiated')">SUBSCRIBE</button>
+                </div>
+            `).join('');
+        }
+
+        function openBio(name) {
+            currentItem = sprouts.find(x => x.name === name);
+            document.getElementById('mName').innerText = currentItem.name;
+            document.getElementById('mHistory').innerHTML = `<h3>MANUSCRIPT</h3><p>${currentItem.history}</p>`;
+            let nHtml = "";
+            for (let cat in currentItem.nutrients) {
+                nHtml += `<div class="n-header">${cat}</div>`;
+                for (let n in currentItem.nutrients[cat]) {
+                    nHtml += `<div class="n-row"><span>${n}</span><b>${currentItem.nutrients[cat][n]}</b></div>`;
+                }
+            }
+            document.getElementById('mNutrients').innerHTML = nHtml;
+            document.getElementById('bioModal').style.display = 'block';
+        }
+
+        function addToCart() {
+            cart.push(currentItem);
+            updateCart();
+            document.getElementById('bioModal').style.display = 'none';
+            toggleCart();
+        }
+
+        function updateCart() {
+            document.getElementById('cartItems').innerHTML = cart.map((item, idx) => `
+                <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #222;">
+                    <span>${item.name}</span>
+                    <button onclick="cart.splice(${idx},1); updateCart();" style="background:none; border:none; color:red; cursor:pointer;">Remove</button>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart() { document.getElementById('cartView').classList.toggle('active'); }
+
+        function checkout() {
+            const name = document.getElementById('custName').value;
+            const addr = document.getElementById('custAddr').value;
+            if(!name || !addr) return alert("Please provide details.");
+            let text = `*🌿 BUDO HARVEST ORDER*%0A*Citizen:* ${name}%0A-----------------%0A`;
+            cart.forEach(i => text += `• ${i.name} (₹${i.price})%0A`);
+            text += `-----------------%0A*Address:* ${addr}`;
+            window.open(`https://wa.me/91XXXXXXXXXX?text=${text}`); // ADD YOUR PHONE HERE
         }
 
         render();
